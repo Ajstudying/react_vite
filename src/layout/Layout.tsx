@@ -14,7 +14,7 @@ function Layout() {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/ordering/ordering.html">Order management</Link>
+              <Link to="/ordering">Order management</Link>
             </li>
             <li>
               <Link to="">Inventory management</Link>
