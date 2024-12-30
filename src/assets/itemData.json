@@ -1,0 +1,156 @@
+{
+  "2024-12-30": {
+    "items": [
+      {
+        "id": 1,
+        "title": "표고버섯",
+        "image": "https://images.pexels.com/photos/29850815/pexels-photo-29850815.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "deadLine": "1",
+        "company": "당당",
+        "unit": "1kg",
+        "price": "8000"
+      },
+      {
+        "id": 4,
+        "title": "청경채",
+        "image": "https://cdn.pixabay.com/photo/2016/12/21/08/55/bok-choy-1922455_1280.jpg",
+        "deadLine": "1",
+        "company": "가가가",
+        "unit": "500g",
+        "price": "3500"
+      },
+      {
+        "id": 5,
+        "title": "시금치",
+        "image": "https://cdn.pixabay.com/photo/2022/12/12/08/54/spinach-7650539_640.jpg",
+        "deadLine": "1",
+        "company": "당당",
+        "unit": "500g",
+        "price": "3500"
+      },
+      {
+        "id": 7,
+        "title": "양파",
+        "image": "https://cdn.pixabay.com/photo/2016/05/16/22/47/onions-1397037_640.jpg",
+        "deadLine": "1",
+        "company": "가가가",
+        "unit": "10kg",
+        "price": "50000"
+      },
+      {
+        "id": 8,
+        "title": "돈육",
+        "image": "https://cdn.pixabay.com/photo/2016/01/05/09/48/pork-1122171_640.jpg",
+        "deadLine": "1",
+        "company": "당당",
+        "unit": "1kg",
+        "price": "5000"
+      },
+      {
+        "id": 10,
+        "title": "김치",
+        "image": "https://cdn.pixabay.com/photo/2022/11/24/02/06/kimchi-7613329_640.jpg",
+        "deadLine": "1",
+        "company": "라라라",
+        "unit": "10kg",
+        "price": "50000"
+      }
+    ],
+    "status": false
+  },
+  "2024-12-31": {
+    "items": [
+      {
+        "id": 1,
+        "title": "표고버섯",
+        "image": "https://images.pexels.com/photos/29850815/pexels-photo-29850815.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "deadLine": "1",
+        "company": "당당",
+        "unit": "1kg",
+        "price": "8000"
+      },
+      {
+        "id": 4,
+        "title": "청경채",
+        "image": "https://cdn.pixabay.com/photo/2016/12/21/08/55/bok-choy-1922455_1280.jpg",
+        "deadLine": "1",
+        "company": "가가가",
+        "unit": "500g",
+        "price": "3500"
+      },
+      {
+        "id": 5,
+        "title": "시금치",
+        "image": "https://cdn.pixabay.com/photo/2022/12/12/08/54/spinach-7650539_640.jpg",
+        "deadLine": "1",
+        "company": "당당",
+        "unit": "500g",
+        "price": "3500"
+      },
+      {
+        "id": 7,
+        "title": "양파",
+        "image": "https://cdn.pixabay.com/photo/2016/05/16/22/47/onions-1397037_640.jpg",
+        "deadLine": "1",
+        "company": "가가가",
+        "unit": "10kg",
+        "price": "50000"
+      },
+      {
+        "id": 8,
+        "title": "돈육",
+        "image": "https://cdn.pixabay.com/photo/2016/01/05/09/48/pork-1122171_640.jpg",
+        "deadLine": "1",
+        "company": "당당",
+        "unit": "1kg",
+        "price": "5000"
+      },
+      {
+        "id": 10,
+        "title": "김치",
+        "image": "https://cdn.pixabay.com/photo/2022/11/24/02/06/kimchi-7613329_640.jpg",
+        "deadLine": "1",
+        "company": "라라라",
+        "unit": "10kg",
+        "price": "50000"
+      },
+      {
+        "id": 2,
+        "title": "방울토마토",
+        "image": "https://images.pexels.com/photos/6576802/pexels-photo-6576802.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "deadLine": "2",
+        "company": "가가가",
+        "unit": "5kg",
+        "price": "6000"
+      },
+      {
+        "id": 3,
+        "title": "사과",
+        "image": "https://cdn.pixabay.com/photo/2016/11/18/13/47/apple-1834639_640.jpg",
+        "deadLine": "2",
+        "company": "라라라",
+        "unit": "10kg",
+        "price": "60000"
+      },
+      {
+        "id": 6,
+        "title": "당근",
+        "image": "https://cdn.pixabay.com/photo/2018/05/29/23/23/carrots-3440368_640.jpg",
+        "deadLine": "2",
+        "company": "가가가",
+        "unit": "3kg",
+        "price": "20000"
+      },
+      {
+        "id": 9,
+        "title": "우육",
+        "image": "https://cdn.pixabay.com/photo/2014/02/10/04/37/beef-263252_1280.jpg",
+        "deadLine": "2",
+        "company": "당당",
+        "unit": "1kg",
+        "price": "10000"
+      }
+    ],
+    "status": false
+  }
+}
