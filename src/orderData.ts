@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { revalidateEvents } from "swr/_internal";
 
-const orderDataApi = fetch("assets/orderData.json").then((res) => res.json());
+const orderDataApi = fetch("/assets/orderData.json").then((res) => res.json());
 
 export interface OrderList {
   id?: number;

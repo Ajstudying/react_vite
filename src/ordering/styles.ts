@@ -57,13 +57,13 @@ export const OrderingContainer = styled.div`
     background-color: #f2f2f2;
   }
   /* 짝수수 행의 배경색 */
-  tr:nth-child(even) {
+  /* tr:nth-child(even) {
     background-color: #f9f9f9;
-  }
+  } */
   /* 홀수 행의 배경색 */
-  tr:nth-child(odd) {
+  /* tr:nth-child(odd) {
     background-color: white;
-  }
+  } */
 
   caption {
     font-size: 1.5em;

@@ -14,12 +14,17 @@ export interface ItemList {
 const INIT_DATA: ItemList[] = [];
 
 const itemListApi = async (date: string) => {
+  console.log(date);
   try {
-    const res = await fetch("assets/itemData.json");
+    const res = await fetch("/assets/itemData.json");
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
     const data = await res.json();
     const booleanStatus = data[date].status;
     const initData = data[date].items; // 날짜를 키로 사용하여 아이템 가져오기
 
+    console.log(initData);
     if (initData) {
       return { booleanStatus, initData };
     } else {
@@ -43,12 +48,12 @@ export const useItemData = (date: string) => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await itemListApi(date);
-
       // 서버에서 가져온 booleanStatus를 사용하여 렌더링 결정
       if (
         booleanStatus &&
         JSON.stringify(result.initData) !== JSON.stringify(INIT_DATA)
       ) {
+        console.log("렌더링!");
         setItemListData(result);
         setShouldRender(true); // 데이터가 변경된 경우만 렌더링 허용
       } else {
@@ -59,12 +64,12 @@ export const useItemData = (date: string) => {
     fetchData();
   }, [date, shouldRender]);
 
-  const { data: ItemList, isValidating: isItemListValidating } = useSWR<
+  const { data: itemList, isValidating: isItemListValidating } = useSWR<
     ItemList[]
   >(shouldRender ? initData : null, {
     fallbackData: INIT_DATA,
-    revalidateOnFocus: booleanStatus, // 포커스 시 재검증 여부 설정
+    revalidateOnFocus: false, // 포커스 시 재검증 여부 설정
   });
 
-  return { ItemList, isItemListValidating };
+  return { itemList, isItemListValidating };
 };
