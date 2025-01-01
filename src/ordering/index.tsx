@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import getDate from "../components/getDate";
-import { ItemList, useItemData } from "../itemData";
+import { useItemData } from "../itemData";
 import { OrderingContainer } from "./styles";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css"; // 기본 스타일 import
+import Calendar from "../components/Calendar";
 
 function Ordering() {
-  const date = getDate(null);
-  const { itemList, isItemListValidating } = useItemData(date);
-  const [itemData, setItemData] = useState<ItemList[]>([]);
+  const [date, setDate] = useState<string | "">("");
 
   useEffect(() => {
-    if (itemList) {
-      setItemData(itemList);
-    }
-  }, [itemList]);
+    const initialDate = getDate(null);
+    setDate(initialDate);
+  }, []);
+
+  const { itemList, isItemListValidating } = useItemData(date);
 
   return (
     <OrderingContainer>
@@ -34,7 +36,7 @@ function Ordering() {
             <span>발주서</span>
             <span id="toggleCalendar">
               <p>주문일자:</p>
-              <input type="text" id="datepicker" />
+              <Calendar />
             </span>
           </div>
         </section>
@@ -56,22 +58,20 @@ function Ordering() {
             </thead>
             <tbody>
               {isItemListValidating ? (
-                <div>
-                  <p>로딩중</p>
-                </div>
-              ) : itemData.length > 0 ? ( // itemData가 비어 있지 않은 경우에만 map 실행
-                itemData.map((item) => (
+                <tr>
+                  <td>로딩중</td>
+                </tr>
+              ) : itemList ? ( // itemList가 비어 있지 않은 경우에만 map 실행
+                itemList.map((item) => (
                   <tr key={item.id}>
-                    {" "}
-                    {/* key 속성 추가 */}
                     <td>
                       <input type="checkbox" name="option1" value="value1" />
                     </td>
                     <td>{item.id}</td>
                     <td>
-                      <img src={item.img} alt={item.product} />
+                      <img src={item.image} alt={item.title} />
                     </td>
-                    <td>{item.product}</td>
+                    <td>{item.title}</td>
                     <td>{item.unit}</td>
                     <td>{item.price}</td>
                     <td>{item.orderAvailableData}</td>
