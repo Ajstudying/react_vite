@@ -16,21 +16,26 @@ const Calendar = ({
   };
 
   return (
-    <div>
-      <button onClick={handleToggle}>
+    <div style={{ position: "relative" }}>
+      <button
+        onClick={handleToggle}
+        className={startDate ? "selected" : ""} // 선택 여부에 따라 클래스 추가
+      >
         {startDate ? startDate.toLocaleDateString() : "날짜 선택"}
       </button>
 
       {isOpen && (
-        <DatePicker
-          selected={startDate}
-          onChange={(date) => {
-            setStartDate(date);
-            onDateChange(date); // 부모 컴포넌트에 날짜 전달
-            setIsOpen(false); // 날짜 선택 후 달력 닫기
-          }}
-          inline // 인라인 모드로 표시
-        />
+        <div className="calendar-container">
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => {
+              setStartDate(date);
+              onDateChange(date); // 부모 컴포넌트에 날짜 전달
+              setIsOpen(false); // 날짜 선택 후 달력 닫기
+            }}
+            inline // 인라인 모드로 표시
+          />
+        </div>
       )}
     </div>
   );
