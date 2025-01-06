@@ -8,11 +8,6 @@ import Calendar from "../components/Calendar";
 function Ordering() {
   const [selectedDate, setSelectedDate] = useState<string | "">("");
 
-  useEffect(() => {
-    const initialDate = getDate(null);
-    setSelectedDate(initialDate);
-  }, []);
-
   const handleDateChange = (date: Date | null) => {
     if (date) {
       // 날짜를 "YYYY-MM-DD" 형식으로 변환
@@ -30,6 +25,10 @@ function Ordering() {
 
   const { itemList, isItemListValidating } = useItemData(selectedDate);
 
+  useEffect(() => {
+    const initialDate = getDate(null);
+    setSelectedDate(initialDate);
+  }, []);
   return (
     <OrderingContainer>
       <div id="ordering_main">
@@ -61,7 +60,7 @@ function Ordering() {
                 <th style={{ pointerEvents: "none" }}>
                   <input type="checkbox" />
                 </th>
-                <th>품목코드</th>
+                <th>code</th>
                 <th>품목사진</th>
                 <th>품목명</th>
                 <th>단위</th>

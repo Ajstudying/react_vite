@@ -6,6 +6,7 @@ export const OrderingContainer = styled.div`
   #ordering_main > section:nth-of-type(1) {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 1rem;
   }
   #ordering_main > section:nth-of-type(2) {
     display: flex;
@@ -79,7 +80,11 @@ export const OrderingContainer = styled.div`
     text-align: start;
   }
   tbody > tr > td:nth-of-type(1) {
-    width: 3rem;
+    width: 1rem;
+  }
+
+  tbody > tr > td:nth-of-type(2) {
+    width: 2rem;
   }
 
   tbody > tr > td:nth-of-type(3) {
