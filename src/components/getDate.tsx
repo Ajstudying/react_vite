@@ -1,3 +1,4 @@
+//특정 날짜 포맷으로 생성하기
 function getDate(dateObject: Date | null) {
   let date;
   if (dateObject !== null) {

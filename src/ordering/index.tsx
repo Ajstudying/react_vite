@@ -2,19 +2,33 @@ import { useEffect, useState } from "react";
 import getDate from "../components/getDate";
 import { useItemData } from "../itemData";
 import { OrderingContainer } from "./styles";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // 기본 스타일 import
 import Calendar from "../components/Calendar";
 
 function Ordering() {
-  const [date, setDate] = useState<string | "">("");
+  const [selectedDate, setSelectedDate] = useState<string | "">("");
 
   useEffect(() => {
     const initialDate = getDate(null);
-    setDate(initialDate);
+    setSelectedDate(initialDate);
   }, []);
 
-  const { itemList, isItemListValidating } = useItemData(date);
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      // 날짜를 "YYYY-MM-DD" 형식으로 변환
+      // 로컬 시간대 기준으로 날짜 조정
+      const localDate = new Date(
+        date.getTime() - date.getTimezoneOffset() * 60000
+      );
+      const formattedDate = localDate.toISOString().split("T")[0]; // "YYYY-MM-DD" 형식
+      setSelectedDate(formattedDate);
+      console.log(formattedDate);
+    } else {
+      setSelectedDate("");
+    }
+  };
+
+  const { itemList, isItemListValidating } = useItemData(selectedDate);
 
   return (
     <OrderingContainer>
@@ -36,7 +50,7 @@ function Ordering() {
             <span>발주서</span>
             <span id="toggleCalendar">
               <p>주문일자:</p>
-              <Calendar />
+              <Calendar onDateChange={handleDateChange} />
             </span>
           </div>
         </section>

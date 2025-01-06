@@ -2,7 +2,12 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // 기본 스타일 import
 
-const Calendar = () => {
+//달력 라이브러리 사용
+const Calendar = ({
+  onDateChange,
+}: {
+  onDateChange: (date: Date | null) => void;
+}) => {
   const [startDate, setStartDate] = useState<Date | null>(null); // Date | null 타입으로 정의
   const [isOpen, setIsOpen] = useState(false);
 
@@ -21,6 +26,7 @@ const Calendar = () => {
           selected={startDate}
           onChange={(date) => {
             setStartDate(date);
+            onDateChange(date); // 부모 컴포넌트에 날짜 전달
             setIsOpen(false); // 날짜 선택 후 달력 닫기
           }}
           inline // 인라인 모드로 표시
