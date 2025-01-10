@@ -39,7 +39,33 @@ function Ordering() {
     }));
   };
 
-  const handleUpdateOrderList = () => {};
+  const handleUpdateOrderList = async () => {
+    try {
+      // 체크된 아이템만 필터링
+      const checkedItems = Object.keys(checkedData)
+        .filter((key) => checkedData[Number(key)]) // true인 값만 필터링
+        .map((id) => Number(id)); // ID 배열로 변환
+
+      console.log(checkedItems);
+      // // 서버로 데이터 전송
+      // const response = await fetch("/api/updateOrderList", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ selectedDate, checkedItems }), // 원하는 데이터 구조에 맞춰 조정
+      // });
+
+      // if (!response.ok) {
+      //   throw new Error("서버에서 응답이 없습니다.");
+      // }
+
+      // const result = await response.json();
+      // console.log(result); // 서버 응답 처리
+    } catch (error) {
+      console.error("에러 발생:", error);
+    }
+  };
 
   useEffect(() => {
     const initialDate = getDate(null);
