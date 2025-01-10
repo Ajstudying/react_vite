@@ -1,12 +1,22 @@
 import { useEffect, useState } from "react";
 import getDate from "../components/getDate";
-import { useItemData } from "../itemData";
 import { OrderingContainer } from "./styles";
 import "react-datepicker/dist/react-datepicker.css"; // 기본 스타일 import
 import Calendar from "../components/Calendar";
+import ItemRow from "../components/ItemRow";
+import { ItemList, useItemData } from "../itemData";
+
+interface CheckedData {
+  [key: number]: boolean; // 체크박스 ID를 키로 하는 boolean 객체
+}
 
 function Ordering() {
   const [selectedDate, setSelectedDate] = useState<string | "">("");
+  const [checkedData, setCheckedData] = useState<CheckedData>({});
+  const { itemList, isItemListValidating } = useItemData(selectedDate);
+
+  // itemList의 타입 정의
+  const safeItemList: ItemList[] = itemList || []; // itemList가 undefined일 경우 빈 배열로 설정
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
@@ -22,8 +32,14 @@ function Ordering() {
       setSelectedDate("");
     }
   };
+  const handleCheckboxChange = (id: number) => {
+    setCheckedData((prevChecked) => ({
+      ...prevChecked,
+      [id]: !prevChecked[id],
+    }));
+  };
 
-  const { itemList, isItemListValidating } = useItemData(selectedDate);
+  const handleUpdateOrderList = () => {};
 
   useEffect(() => {
     const initialDate = getDate(null);
@@ -69,36 +85,14 @@ function Ordering() {
                 <th>업장명</th>
               </tr>
             </thead>
-            <tbody>
-              {isItemListValidating ? (
-                <tr>
-                  <td>로딩중</td>
-                </tr>
-              ) : itemList ? ( // itemList가 비어 있지 않은 경우에만 map 실행
-                itemList.map((item) => (
-                  <tr key={item.id}>
-                    <td>
-                      <input type="checkbox" name="option1" value="value1" />
-                    </td>
-                    <td>{item.id}</td>
-                    <td>
-                      <img src={item.image} alt={item.title} />
-                    </td>
-                    <td>{item.title}</td>
-                    <td>{item.unit}</td>
-                    <td>{item.price}</td>
-                    <td>{item.orderAvailableData}</td>
-                    <td>{item.company}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={8}>데이터가 없습니다.</td>
-                </tr> // 데이터가 없을 때 메시지 표시
-              )}
-            </tbody>
+            <ItemRow
+              checkedData={checkedData}
+              validate={isItemListValidating}
+              itemList={safeItemList}
+              onChange={handleCheckboxChange}
+            />
           </table>
-          <button id="orderBtn">
+          <button id="orderBtn" onClick={handleUpdateOrderList}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
