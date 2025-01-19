@@ -6,4 +6,6 @@ npm 11.0.0
 emotion
 swr
 React Datepicker
+React router dom
+lottie-web
 ```
