@@ -7,5 +7,5 @@ emotion
 swr
 React Datepicker
 React router dom
-lottie-web
+lottie-react
 ```
