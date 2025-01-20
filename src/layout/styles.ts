@@ -46,4 +46,43 @@ export const LayoutContainer = styled.div`
     align-items: center;
     background-color: #f0f0f0; /* 실제 그레이스케일 색상 값으로 변경 */
   }
+  .cite {
+    margin-top: 3rem;
+    padding: 30px 0px;
+    background-color: #b07d62;
+    color: #22333b;
+    font-weight: 100;
+  }
+  .cite > div {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+  }
+  .cite > div > span {
+    margin-top: 0px;
+  }
+  .cite > div > span > h1 {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .cite > div > span > h5 {
+    margin-top: 10px;
+  }
+  .cite > div > h2 {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .cite > div > address {
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .cite > div > address > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
 `;

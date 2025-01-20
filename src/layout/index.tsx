@@ -3,6 +3,7 @@ import ResetStyle from "../styles/reset";
 import { LayoutContainer } from "./styles";
 import { Link, Outlet } from "react-router-dom";
 import Loading from "../components/Loading";
+import Footer from "../footer/Footer";
 
 function Layout() {
   const [loading, setLoading] = useState(true);
@@ -46,6 +47,7 @@ function Layout() {
             <Outlet />
           </Suspense>
         </main>
+        <Footer />
       </div>
     </LayoutContainer>
   );
