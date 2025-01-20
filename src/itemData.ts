@@ -15,14 +15,17 @@ const INIT_DATA: ItemList[] = [];
 const itemListApi = async (date: string): Promise<ItemList[]> => {
   console.log(date);
   try {
-    const res = await fetch(`http://localhost:5173/${date}/data.json`);
+    const res = await fetch(`http://localhost:8080/items/list`);
     // console.log(res);
     // console.log(res.status);
+    console.log(res);
     if (res.status !== 200) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
     const data = await res.json();
-    const initData = data.items; // 날짜를 키로 사용하여 아이템 가져오기
+    console.log(data);
+    // const initData = data.items; // 날짜를 키로 사용하여 아이템 가져오기
+    const initData = data;
 
     if (initData) {
       return initData;
