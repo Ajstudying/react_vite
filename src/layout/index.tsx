@@ -23,22 +23,44 @@ function Layout() {
       <div id="main">
         {loading && <Loading />}
         <nav>
-          <ul id="navigate">
+          <ul id="navigate" className="flex space-x-4 p-4">
             <li>
-              <Link to="/">Home</Link>
+              <Link
+                to="/"
+                className="text-gray-700 hover:bg-brown-700 hover:text-black p-2 rounded transition-all duration-300 text-lg hover:text-xl"
+              >
+                Home
+              </Link>
             </li>
             <li>
-              <Link to="/ordering">Order management</Link>
+              <Link
+                to="/ordering"
+                className="text-gray-700 hover:bg-brown-700 hover:text-black p-2 rounded transition-all duration-300 text-lg hover:text-xl"
+              >
+                Order management
+              </Link>
             </li>
             <li>
-              <Link to="">Inventory management</Link>
+              <Link
+                to=""
+                className="text-gray-700 hover:bg-brown-700 hover:text-black p-2 rounded transition-all duration-300 text-lg hover:text-xl"
+              >
+                Inventory management
+              </Link>
             </li>
             <li>
-              <Link to="">Business management</Link>
+              <Link
+                to=""
+                className="text-gray-700 hover:bg-brown-700 hover:text-black p-2 rounded transition-all duration-300 text-lg hover:text-xl"
+              >
+                Business management
+              </Link>
             </li>
           </ul>
           <div>
-            <button>login</button>
+            <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-700">
+              login
+            </button>
           </div>
         </nav>
         <main>

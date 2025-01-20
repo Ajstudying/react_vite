@@ -15,7 +15,7 @@ const INIT_DATA: ItemList[] = [];
 const itemListApi = async (date: string): Promise<ItemList[]> => {
   console.log(date);
   try {
-    const res = await fetch(`http://localhost:8080/items/list`);
+    const res = await fetch(`http://localhost:8080/items/`);
     // console.log(res);
     // console.log(res.status);
     if (res.status !== 200) {
@@ -46,6 +46,5 @@ export const useItemData = (date: string) => {
     fallbackData: INIT_DATA,
     revalidateOnFocus: false,
   });
-  console.log(itemList);
   return { itemList, isItemListValidating };
 };

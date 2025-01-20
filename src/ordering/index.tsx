@@ -47,6 +47,9 @@ function Ordering() {
         .map((id) => Number(id)); // ID 배열로 변환
 
       console.log(checkedItems);
+
+      //       localStorage.setItem('key', JSON.stringify(data));
+      // const cachedData = JSON.parse(localStorage.getItem('key'));
       // // 서버로 데이터 전송
       // const response = await fetch("/api/updateOrderList", {
       //   method: "POST",

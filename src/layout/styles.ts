@@ -29,10 +29,10 @@ export const LayoutContainer = styled.div`
     list-style: none;
     gap: 5rem;
   }
-  #navigate > li > a {
+  /* #navigate > li > a {
     text-decoration: none;
     color: black;
-  }
+  } */
   #loading {
     position: fixed;
     top: 0;
