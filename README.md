@@ -8,4 +8,5 @@ swr
 React Datepicker
 React router dom
 lottie-react
+tailwind
 ```

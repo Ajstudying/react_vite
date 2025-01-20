@@ -121,8 +121,12 @@ function Ordering() {
               onChange={handleCheckboxChange}
             />
           </table>
-          <button id="orderBtn" onClick={handleUpdateOrderList}>
+          <button
+            className="flex items-center justify-center border border-white h-12 rounded-full mt-12 bg-[rgba(180,154,130)] cursor-pointer transition duration-300 hover:bg-brown-700"
+            onClick={handleUpdateOrderList}
+          >
             <svg
+              className="text-white text-lg w-9 h-full"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"

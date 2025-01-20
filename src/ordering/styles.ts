@@ -39,7 +39,7 @@ export const OrderingContainer = styled.div`
     border-collapse: collapse;
     width: 100%;
   }
-  #orderBtn {
+  /* #orderBtn {
     border: 1px solid white;
     height: 50px;
     border-radius: 50px;
@@ -50,10 +50,10 @@ export const OrderingContainer = styled.div`
   svg {
     font-size: 16px;
     color: white;
-    width: 38px; /* 아이콘 크기 조정 */
+    width: 38px;
     height: 50px;
     cursor: pointer;
-  }
+  } */
 
   th,
   td {
