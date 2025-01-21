@@ -5,6 +5,8 @@ import "react-datepicker/dist/react-datepicker.css"; // 기본 스타일 import
 import Calendar from "../components/Calendar";
 import ItemRow from "../components/ItemRow";
 import { ItemList, useItemData } from "../itemData";
+import { OrderList } from "../orderData";
+import OrderRow from "../components/OrderRow";
 
 interface CheckedData {
   [key: number]: boolean; // 체크박스 ID를 키로 하는 boolean 객체
@@ -14,6 +16,8 @@ function Ordering() {
   const [selectedDate, setSelectedDate] = useState<string | "">("");
   const [checkedData, setCheckedData] = useState<CheckedData>({});
   const { itemList, isItemListValidating } = useItemData(selectedDate);
+  const [selectedItems, setSelectedItems] = useState<ItemList[]>([]); // 선택된 아이템 정보 상태
+  const [orderData, setOrderData] = useState<OrderList[]>([]);
 
   // itemList의 타입 정의
   const safeItemList: ItemList[] = itemList || []; // itemList가 undefined일 경우 빈 배열로 설정
@@ -32,41 +36,48 @@ function Ordering() {
       setSelectedDate("");
     }
   };
+
   const handleCheckboxChange = (id: number) => {
-    setCheckedData((prevChecked) => ({
-      ...prevChecked,
-      [id]: !prevChecked[id],
-    }));
+    setCheckedData((prev) => {
+      const newCheckedData = { ...prev, [id]: !prev[id] }; // 체크 상태 토글
+      // 선택된 아이템 업데이트
+      if (itemList) {
+        const updatedSelectedItems = itemList.filter(
+          (item) => item.id !== undefined && newCheckedData[item.id] // id가 undefined가 아닐 때만 체크
+        );
+        setSelectedItems(updatedSelectedItems); // 선택된 아이템 업데이트
+        return newCheckedData;
+      }
+      return newCheckedData;
+    });
   };
 
   const handleUpdateOrderList = async () => {
+    // 체크된 아이템만 필터링 확인용
+    // const checkedItems = Object.keys(checkedData)
+    //   .filter((key) => checkedData[Number(key)]) // true인 값만 필터링
+    //   .map((id) => Number(id)); // ID 배열로 변환
+
+    // console.log(checkedItems);
     try {
-      // 체크된 아이템만 필터링
-      const checkedItems = Object.keys(checkedData)
-        .filter((key) => checkedData[Number(key)]) // true인 값만 필터링
-        .map((id) => Number(id)); // ID 배열로 변환
-
-      console.log(checkedItems);
-
-      //       localStorage.setItem('key', JSON.stringify(data));
-      // const cachedData = JSON.parse(localStorage.getItem('key'));
-      // // 서버로 데이터 전송
-      // const response = await fetch("/api/updateOrderList", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ selectedDate, checkedItems }), // 원하는 데이터 구조에 맞춰 조정
-      // });
-
-      // if (!response.ok) {
-      //   throw new Error("서버에서 응답이 없습니다.");
-      // }
-
-      // const result = await response.json();
-      // console.log(result); // 서버 응답 처리
+      // 선택된 아이템을 날짜를 키로 하여 localStorage에 저장
+      localStorage.setItem(selectedDate, JSON.stringify(selectedItems));
+      // OrderData 객체 배열 생성
+      const newOrders = selectedItems.map((item) => {
+        return {
+          id: item.id,
+          title: item.title,
+          quantity: 1,
+          unit: item.unit,
+          price: item.price,
+          company: item.company,
+        };
+      });
+      if (newOrders) {
+        setOrderData(newOrders);
+      }
     } catch (error) {
-      console.error("에러 발생:", error);
+      console.error(error);
     }
   };
 
@@ -74,6 +85,24 @@ function Ordering() {
     const initialDate = getDate(null);
     setSelectedDate(initialDate);
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (selectedDate !== null) {
+        const cachedData = localStorage.getItem(selectedDate);
+        if (cachedData) {
+          const parsedData = JSON.parse(cachedData);
+          console.log(parsedData);
+          setOrderData(parsedData);
+        } else {
+          setOrderData([]);
+        }
+      }
+    };
+
+    fetchData(); // 비동기 함수 호출
+  }, [selectedDate]);
+
   return (
     <OrderingContainer>
       <div id="ordering_main">
@@ -135,7 +164,22 @@ function Ordering() {
               <path d="M8 5v14l11-7z" fill="currentColor" />
             </svg>
           </button>
-          <table></table>
+          <table>
+            <thead>
+              <tr>
+                <th style={{ pointerEvents: "none" }}>
+                  <input type="checkbox" />
+                </th>
+                <th>품목명</th>
+                <th>수량</th>
+                <th>단위</th>
+                <th>가격</th>
+                <th>업장명</th>
+                <th>확정여부</th>
+              </tr>
+            </thead>
+            <OrderRow orderData={orderData} />
+          </table>
         </section>
       </div>
     </OrderingContainer>

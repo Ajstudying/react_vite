@@ -2,10 +2,11 @@ import useSWR from "swr";
 
 export interface OrderList {
   id?: number;
-  product: string;
+  title: string;
   unit: string;
   price: number;
-  orderAvailableData: string;
+  quantity: number;
+  orderAvailableData?: string;
   company: string;
 }
 
