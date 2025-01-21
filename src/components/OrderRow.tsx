@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { OrderList } from "../orderData";
 
 interface OrderRowProps {
@@ -5,6 +6,24 @@ interface OrderRowProps {
 }
 
 const OrderRow = ({ orderData }: OrderRowProps) => {
+  const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
+
+  useEffect(() => {
+    const initialQuantities: { [key: number]: number } = {};
+    orderData.forEach((order) => {
+      if (order.id) {
+        initialQuantities[order.id] = order.baseQuantity; // 각 아이템의 baseQuantity 초기화
+      }
+    });
+    setQuantities(initialQuantities);
+  }, [orderData]);
+
+  const handleQuantityChange = (id: number, value: number) => {
+    setQuantities((prev) => ({
+      ...prev,
+      [id]: value, // 특정 아이템의 수량 업데이트
+    }));
+  };
   return (
     <tbody>
       {orderData && orderData.length > 0 ? (
@@ -14,7 +33,32 @@ const OrderRow = ({ orderData }: OrderRowProps) => {
               <input type="checkbox" /> {/* 체크박스 추가 */}
             </td>
             <td>{item.title}</td>
-            <td>{item.quantity}</td>
+            <td id="amount">
+              {item.id !== undefined ? (
+                <input
+                  type="number"
+                  // ref={numberValue}
+                  value={quantities[item.id] || 0} // 해당 아이템의 수량 표시
+                  onChange={(e) => {
+                    if (item.id !== undefined) {
+                      handleQuantityChange(
+                        item.id,
+                        parseInt(e.target.value, 10)
+                      );
+                    }
+                  }}
+                />
+              ) : (
+                <input
+                  type="number"
+                  // ref={numberValue}
+                  value="0"
+                  onChange={(e) =>
+                    handleQuantityChange(0, parseInt(e.target.value, 10))
+                  }
+                />
+              )}
+            </td>
             <td>{item.unit}</td>
             <td>{item.price}</td>
             <td>{item.company}</td>

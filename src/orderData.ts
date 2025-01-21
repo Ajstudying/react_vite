@@ -8,6 +8,7 @@ export interface OrderList {
   quantity: number;
   orderAvailableData?: string;
   company: string;
+  baseQuantity: number;
 }
 
 const INIT_DATA: OrderList[] = [];

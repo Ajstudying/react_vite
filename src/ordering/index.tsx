@@ -71,6 +71,7 @@ function Ordering() {
           unit: item.unit,
           price: item.price,
           company: item.company,
+          baseQuantity: item.baseQuantity,
         };
       });
       if (newOrders) {
