@@ -44,23 +44,24 @@ export const OrderingContainer = styled.div`
   }
   #sectionDiv {
     display: flex;
-    gap: 3rem;
-    justify-content: space-evenly;
-    border: solid 3px beige;
-    height: 64vh;
+    justify-content: space-between;
+    height: 69vh;
   }
   #sectionDiv > section {
-    border: solid 2px crimson;
+    width: 45%;
     height: 100%;
     overflow-y: auto; /* 내용이 넘칠 경우 세로 스크롤 추가 */
   }
   /* #orderBtn {
     border: 1px solid white;
     height: 50px;
+    width: 50px;
     border-radius: 50px;
     margin-top: 50px;
     background-color: rgba(180, 154, 130);
     cursor: pointer;
+    display: flex;
+    justify-content: center;
   }
   svg {
     font-size: 16px;

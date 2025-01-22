@@ -156,11 +156,12 @@ function Ordering() {
             </table>
           </section>
           <button
-            className="flex items-center justify-center border border-white h-12 rounded-full mt-12 bg-[rgba(180,154,130)] cursor-pointer transition duration-300 hover:bg-brown-700"
+            id="orderBtn"
+            className="border border-white h-12 w-12 rounded-full mt-12 bg-[rgba(180,154,130)] flex justify-center items-center shadow-md hover:shadow-lg active:shadow-inner cursor-pointer transition-all duration-200"
             onClick={handleUpdateOrderList}
           >
             <svg
-              className="text-white text-lg w-9 h-full"
+              className="text-white w-9 h-12 cursor-pointer"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"

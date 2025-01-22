@@ -48,8 +48,9 @@ export const LayoutContainer = styled.div`
   }
   .cite {
     margin-top: 0.5rem;
-    padding: 30px 0px;
-    background-color: #b07d62;
+    padding: 10px 0px;
+    /* background-color: rgba(180, 154, 130); */
+    background-color: #b38e6b;
     color: #22333b;
     font-weight: 100;
   }
