@@ -41,11 +41,18 @@ const OrderRow = ({ orderData }: OrderRowProps) => {
   }, []);
 
   const handleQuantityChange = (id: number, value: number) => {
-    setQuantities((prev) => ({
-      ...prev,
-      [id]: value, // 특정 아이템의 수량 업데이트
-    }));
+    const increase = increaseValue[id]; // 현재 아이템의 증가값 가져오기
+    if (increase && value % increase !== 0) {
+      alert("수량을 다시 확인해주세요.");
+      // 상태 업데이트 하지 않음
+    } else {
+      setQuantities((prev) => ({
+        ...prev,
+        [id]: value, // 특정 아이템의 수량 업데이트
+      }));
+    }
   };
+
   return (
     <tbody>
       {orderData && orderData.length > 0 ? (
