@@ -42,7 +42,9 @@ const ItemRow = ({
                 <img src={item.image} alt={item.title} />
               </td>
               <td>{item.title}</td>
-              <td>{item.unit}</td>
+              <td>
+                {item.baseQuantity}&nbsp;{item.unit}
+              </td>
               <td>{item.price}</td>
               <td>{item.orderAvailableData}</td>
               <td>{item.company}</td>

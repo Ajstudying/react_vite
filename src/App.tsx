@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route element={<Home />} index />
-          <Route key="ordering" path="/ordering" element={<Ordering />} />
+          <Route path="ordering" element={<Ordering />} />
         </Route>
       </Routes>
     </BrowserRouter>

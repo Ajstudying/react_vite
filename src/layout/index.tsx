@@ -1,11 +1,13 @@
 import { Suspense, useEffect, useState } from "react";
 import ResetStyle from "../styles/reset";
 import { LayoutContainer } from "./styles";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import Loading from "../components/Loading";
 import Footer from "../footer/Footer";
 
 function Layout() {
+  const location = useLocation();
+  const showFooter = location.pathname !== "/"; // Home 페이지에서는 footer를 숨김
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -69,7 +71,7 @@ function Layout() {
             <Outlet />
           </Suspense>
         </main>
-        <Footer />
+        {showFooter && <Footer />}
       </div>
     </LayoutContainer>
   );

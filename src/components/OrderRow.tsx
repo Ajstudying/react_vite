@@ -7,6 +7,9 @@ interface OrderRowProps {
 
 const OrderRow = ({ orderData }: OrderRowProps) => {
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
+  const [increaseValue, setIncreaseValue] = useState<{ [key: number]: number }>(
+    {}
+  );
 
   useEffect(() => {
     const initialQuantities: { [key: number]: number } = {};
@@ -17,6 +20,17 @@ const OrderRow = ({ orderData }: OrderRowProps) => {
     });
     setQuantities(initialQuantities);
   }, [orderData]);
+
+  //증가값은 처음 로딩했을 때만 설정함
+  useEffect(() => {
+    const initialIncreaseValue: { [key: number]: number } = {};
+    orderData.forEach((order) => {
+      if (order.id) {
+        initialIncreaseValue[order.id] = order.baseQuantity; // 각 아이템의 baseQuantity 초기화
+      }
+    });
+    setIncreaseValue(initialIncreaseValue);
+  }, []);
 
   const handleQuantityChange = (id: number, value: number) => {
     setQuantities((prev) => ({
@@ -39,6 +53,9 @@ const OrderRow = ({ orderData }: OrderRowProps) => {
                   type="number"
                   // ref={numberValue}
                   value={quantities[item.id] || 0} // 해당 아이템의 수량 표시
+                  min={increaseValue[item.id]}
+                  max="100"
+                  step={increaseValue[item.id]}
                   onChange={(e) => {
                     if (item.id !== undefined) {
                       handleQuantityChange(
@@ -53,6 +70,9 @@ const OrderRow = ({ orderData }: OrderRowProps) => {
                   type="number"
                   // ref={numberValue}
                   value="0"
+                  min="0"
+                  max="100"
+                  step={1}
                   onChange={(e) =>
                     handleQuantityChange(0, parseInt(e.target.value, 10))
                   }
