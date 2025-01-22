@@ -83,11 +83,6 @@ function Ordering() {
   };
 
   useEffect(() => {
-    const initialDate = getDate(null);
-    setSelectedDate(initialDate);
-  }, []);
-
-  useEffect(() => {
     const fetchData = async () => {
       if (selectedDate !== null) {
         const cachedData = localStorage.getItem(selectedDate);
@@ -103,6 +98,11 @@ function Ordering() {
 
     fetchData(); // 비동기 함수 호출
   }, [selectedDate]);
+
+  useEffect(() => {
+    const initialDate = getDate(null);
+    setSelectedDate(initialDate);
+  }, []);
 
   return (
     <OrderingContainer>
@@ -126,7 +126,10 @@ function Ordering() {
             <span>발주서</span>
             <span id="toggleCalendar">
               <p>주문일자:</p>
-              <Calendar onDateChange={handleDateChange} />
+              <Calendar
+                onDateChange={handleDateChange}
+                selectedDate={selectedDate}
+              />
             </span>
           </div>
         </section>

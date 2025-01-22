@@ -15,7 +15,11 @@ const OrderRow = ({ orderData }: OrderRowProps) => {
     const initialQuantities: { [key: number]: number } = {};
     orderData.forEach((order) => {
       if (order.id) {
-        initialQuantities[order.id] = order.baseQuantity; // 각 아이템의 baseQuantity 초기화
+        if (order.unit !== "g") {
+          initialQuantities[order.id] = order.baseQuantity; // 각 아이템의 baseQuantity 초기화
+        } else {
+          initialQuantities[order.id] = order.baseQuantity / 1000;
+        }
       }
     });
     setQuantities(initialQuantities);
@@ -26,7 +30,11 @@ const OrderRow = ({ orderData }: OrderRowProps) => {
     const initialIncreaseValue: { [key: number]: number } = {};
     orderData.forEach((order) => {
       if (order.id) {
-        initialIncreaseValue[order.id] = order.baseQuantity; // 각 아이템의 baseQuantity 초기화
+        if (order.unit !== "g") {
+          initialIncreaseValue[order.id] = order.baseQuantity;
+        } else {
+          initialIncreaseValue[order.id] = order.baseQuantity / 1000;
+        }
       }
     });
     setIncreaseValue(initialIncreaseValue);
@@ -47,7 +55,7 @@ const OrderRow = ({ orderData }: OrderRowProps) => {
               <input type="checkbox" /> {/* 체크박스 추가 */}
             </td>
             <td>{item.title}</td>
-            <td id="amount">
+            <td>
               {item.id !== undefined ? (
                 <input
                   type="number"
@@ -60,26 +68,27 @@ const OrderRow = ({ orderData }: OrderRowProps) => {
                     if (item.id !== undefined) {
                       handleQuantityChange(
                         item.id,
-                        parseInt(e.target.value, 10)
+                        parseFloat(e.target.value) || 0
                       );
                     }
                   }}
                 />
               ) : (
-                <input
-                  type="number"
-                  // ref={numberValue}
-                  value="0"
-                  min="0"
-                  max="100"
-                  step={1}
-                  onChange={(e) =>
-                    handleQuantityChange(0, parseInt(e.target.value, 10))
-                  }
-                />
+                <div>no</div>
+                // <input
+                //   type="number"
+                //   // ref={numberValue}
+                //   value={0}
+                //   min="0"
+                //   max="100"
+                //   step={1}
+                //   onChange={(e) => {
+                //     handleQuantityChange(0, parseInt(e.target.value, 10));
+                //   }}
+                // />
               )}
             </td>
-            <td>{item.unit}</td>
+            {item.unit === "g" ? <td>kg</td> : <td>{item.unit}</td>}
             <td>{item.price}</td>
             <td>{item.company}</td>
             <td>

@@ -95,18 +95,39 @@ export const OrderingContainer = styled.div`
     margin: 10px;
     text-align: start;
   }
-  tbody > tr > td:nth-of-type(1) {
+  #sectionDiv
+    > section:nth-of-type(1)
+    > table
+    > tbody
+    > tr
+    > td:nth-of-type(1) {
     width: 1rem;
   }
 
-  tbody > tr > td:nth-of-type(2) {
+  #sectionDiv
+    > section:nth-of-type(1)
+    > table
+    > tbody
+    > tr
+    > td:nth-of-type(2) {
     width: 2rem;
   }
 
-  tbody > tr > td:nth-of-type(3) {
+  #sectionDiv
+    > section:nth-of-type(1)
+    > table
+    > tbody
+    > tr
+    > td:nth-of-type(3) {
     width: 11rem;
   }
-  tbody > tr > td:nth-of-type(3) > img {
+  #sectionDiv
+    > section:nth-of-type(1)
+    > table
+    > tbody
+    > tr
+    > td:nth-of-type(3)
+    > img {
     width: 100%;
     height: 7rem;
   }
