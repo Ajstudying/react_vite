@@ -8,14 +8,18 @@ export const OrderingContainer = styled.div`
     justify-content: space-between;
     margin-bottom: 1rem;
   }
-  #ordering_main > section:nth-of-type(2) {
-    display: flex;
-    gap: 3rem;
-  }
   #orderSearch {
     display: flex;
     width: 45%;
     justify-content: space-between;
+  }
+  #orderSearch > form {
+    display: flex;
+    gap: 5px;
+  }
+  #orderSearch > form > input {
+    border: solid 1px black;
+    border-radius: 3px;
   }
   #orderList {
     display: flex;
@@ -36,8 +40,19 @@ export const OrderingContainer = styled.div`
     cursor: pointer; /* 포인터 커서 유지 */
   }
   table {
-    border-collapse: collapse;
     width: 100%;
+  }
+  #sectionDiv {
+    display: flex;
+    gap: 3rem;
+    justify-content: space-evenly;
+    border: solid 3px beige;
+    height: 64vh;
+  }
+  #sectionDiv > section {
+    border: solid 2px crimson;
+    height: 100%;
+    overflow-y: auto; /* 내용이 넘칠 경우 세로 스크롤 추가 */
   }
   /* #orderBtn {
     border: 1px solid white;

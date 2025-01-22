@@ -47,7 +47,7 @@ export const LayoutContainer = styled.div`
     background-color: #f0f0f0; /* 실제 그레이스케일 색상 값으로 변경 */
   }
   .cite {
-    margin-top: 3rem;
+    margin-top: 0.5rem;
     padding: 30px 0px;
     background-color: #b07d62;
     color: #22333b;

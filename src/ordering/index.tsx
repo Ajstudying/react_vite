@@ -117,7 +117,9 @@ function Ordering() {
                 <option value="">상품코드</option>
               </select>
               <input type="text" />
-              <button>검색</button>
+              <button className="bg-black text-white font-semibold py-1 px-4 rounded hover:bg-gray-800">
+                검색
+              </button>
             </form>
           </div>
           <div id="orderList">
@@ -128,29 +130,31 @@ function Ordering() {
             </span>
           </div>
         </section>
-        <section>
-          <table>
-            <thead>
-              <tr>
-                <th style={{ pointerEvents: "none" }}>
-                  <input type="checkbox" />
-                </th>
-                <th>code</th>
-                <th>품목사진</th>
-                <th>품목명</th>
-                <th>단위</th>
-                <th>단가</th>
-                <th>주문가능여부</th>
-                <th>업장명</th>
-              </tr>
-            </thead>
-            <ItemRow
-              checkedData={checkedData}
-              validate={isItemListValidating}
-              itemList={safeItemList}
-              onChange={handleCheckboxChange}
-            />
-          </table>
+        <div id="sectionDiv">
+          <section>
+            <table>
+              <thead>
+                <tr>
+                  <th style={{ pointerEvents: "none" }}>
+                    <input type="checkbox" />
+                  </th>
+                  <th>code</th>
+                  <th>품목사진</th>
+                  <th>품목명</th>
+                  <th>단위</th>
+                  <th>단가</th>
+                  <th>주문가능여부</th>
+                  <th>업장명</th>
+                </tr>
+              </thead>
+              <ItemRow
+                checkedData={checkedData}
+                validate={isItemListValidating}
+                itemList={safeItemList}
+                onChange={handleCheckboxChange}
+              />
+            </table>
+          </section>
           <button
             className="flex items-center justify-center border border-white h-12 rounded-full mt-12 bg-[rgba(180,154,130)] cursor-pointer transition duration-300 hover:bg-brown-700"
             onClick={handleUpdateOrderList}
@@ -165,23 +169,25 @@ function Ordering() {
               <path d="M8 5v14l11-7z" fill="currentColor" />
             </svg>
           </button>
-          <table>
-            <thead>
-              <tr>
-                <th style={{ pointerEvents: "none" }}>
-                  <input type="checkbox" />
-                </th>
-                <th>품목명</th>
-                <th>수량</th>
-                <th>단위</th>
-                <th>가격</th>
-                <th>업장명</th>
-                <th>확정여부</th>
-              </tr>
-            </thead>
-            <OrderRow orderData={orderData} />
-          </table>
-        </section>
+          <section>
+            <table>
+              <thead>
+                <tr>
+                  <th style={{ pointerEvents: "none" }}>
+                    <input type="checkbox" />
+                  </th>
+                  <th>품목명</th>
+                  <th>수량</th>
+                  <th>단위</th>
+                  <th>가격</th>
+                  <th>업장명</th>
+                  <th>확정여부</th>
+                </tr>
+              </thead>
+              <OrderRow orderData={orderData} />
+            </table>
+          </section>
+        </div>
       </div>
     </OrderingContainer>
   );
