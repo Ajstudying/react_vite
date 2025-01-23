@@ -88,7 +88,6 @@ function Ordering() {
         const cachedData = localStorage.getItem(selectedDate);
         if (cachedData) {
           const parsedData = JSON.parse(cachedData);
-          console.log(parsedData);
           setOrderData(parsedData);
         } else {
           setOrderData([]);

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { OrderList } from "../orderData";
+import { setTime } from "react-datepicker/dist/date_utils";
 
 interface OrderRowProps {
   orderData: OrderList[]; // props 타입 정의
@@ -72,6 +73,15 @@ const OrderRow = ({ orderData }: OrderRowProps) => {
                   max="100"
                   step={increaseValue[item.id]}
                   onChange={(e) => {
+                    if (item.id !== undefined) {
+                      // 실시간으로 값 변경 (임시 상태 업데이트)
+                      setQuantities((prev) => ({
+                        ...prev,
+                        [String(item.id)]: parseFloat(e.target.value) || 0,
+                      }));
+                    }
+                  }}
+                  onBlur={(e) => {
                     if (item.id !== undefined) {
                       handleQuantityChange(
                         item.id,

@@ -17,7 +17,6 @@ const INIT_DATA: OrderList[] = [];
 export const orderFetcher = async (date: string) => {
   try {
     const value = localStorage.getItem(date);
-    console.log(value);
     return value;
   } catch (e: any) {
     return INIT_DATA;

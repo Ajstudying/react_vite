@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .layout-link {
+    @apply text-gray-700 hover:text-black p-2 rounded transition-all duration-300 text-lg hover:text-xl;
+  }
+}

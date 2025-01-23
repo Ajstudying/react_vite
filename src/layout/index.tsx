@@ -27,34 +27,22 @@ function Layout() {
         <nav>
           <ul id="navigate" className="flex space-x-4 p-4">
             <li>
-              <Link
-                to="/"
-                className="text-gray-700 hover:bg-brown-700 hover:text-black p-2 rounded transition-all duration-300 text-lg hover:text-xl"
-              >
+              <Link to="/" className="layout-link">
                 Home
               </Link>
             </li>
             <li>
-              <Link
-                to="/ordering"
-                className="text-gray-700 hover:bg-brown-700 hover:text-black p-2 rounded transition-all duration-300 text-lg hover:text-xl"
-              >
+              <Link to="/ordering" className="layout-link">
                 Order management
               </Link>
             </li>
             <li>
-              <Link
-                to=""
-                className="text-gray-700 hover:bg-brown-700 hover:text-black p-2 rounded transition-all duration-300 text-lg hover:text-xl"
-              >
+              <Link to="" className="layout-link">
                 Inventory management
               </Link>
             </li>
             <li>
-              <Link
-                to=""
-                className="text-gray-700 hover:bg-brown-700 hover:text-black p-2 rounded transition-all duration-300 text-lg hover:text-xl"
-              >
+              <Link to="" className="layout-link">
                 Business management
               </Link>
             </li>
