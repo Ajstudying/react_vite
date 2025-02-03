@@ -14,9 +14,11 @@ interface CheckedData {
 
 function Ordering() {
   const [selectedDate, setSelectedDate] = useState<string | "">("");
-  const [checkedData, setCheckedData] = useState<CheckedData>({});
-  // const [checkedData, dispatch] = useReducer(checkedDataReducer, {});
+  const [itemCheckedData, setItemCheckedData] = useState<CheckedData>({});
+  const [orderCheckedData, setOrderCheckedData] = useState<CheckedData>({});
+  // const [itemCheckedData, dispatch] = useReducer(itemCheckedDataReducer, {});
   const [selectedItems, setSelectedItems] = useState<ItemList[]>([]); // 선택된 아이템 정보 상태
+  const [selectedOrders, setSelectedOrders] = useState<OrderList[]>([]);
   const { itemList, isItemListValidating } = useItemData(selectedDate);
   const [orderData, setOrderData] = useState<OrderList[]>([]);
 
@@ -38,25 +40,40 @@ function Ordering() {
     }
   };
 
-  const handleCheckboxChange = (id: number) => {
-    setCheckedData((prev) => {
-      const newCheckedData = { ...prev, [id]: !prev[id] }; // 체크 상태 토글
+  const handleAddCheckboxChange = (id: number) => {
+    setItemCheckedData((prev) => {
+      const newItemCheckedData = { ...prev, [id]: !prev[id] }; // 체크 상태 토글
       // 선택된 아이템 업데이트
       if (itemList) {
         const updatedSelectedItems = itemList.filter(
-          (item) => item.id !== undefined && newCheckedData[item.id] // id가 undefined가 아닐 때만 체크
+          (item) => item.id !== undefined && newItemCheckedData[item.id] // id가 undefined가 아닐 때만 체크
         );
         setSelectedItems(updatedSelectedItems); // 선택된 아이템 업데이트
-        return newCheckedData;
+        return newItemCheckedData;
       }
-      return newCheckedData;
+      return newItemCheckedData;
+    });
+  };
+
+  const handleDeleteCheckboxChange = (id: number) => {
+    setOrderCheckedData((prev) => {
+      const newOrderCheckedData = { ...prev, [id]: !prev[id] }; // 체크 상태 토글
+      // 선택되지 않은 아이템들만 업데이트
+      if (orderData) {
+        const updatedSelectedItems = orderData.filter(
+          (item) => item.id !== undefined && newOrderCheckedData[item.id]
+        );
+        setSelectedOrders(updatedSelectedItems);
+        return newOrderCheckedData;
+      }
+      return newOrderCheckedData;
     });
   };
 
   const handleUpdateOrderList = async () => {
     // 체크된 아이템만 필터링 확인용
-    // const checkedItems = Object.keys(checkedData)
-    //   .filter((key) => checkedData[Number(key)]) // true인 값만 필터링
+    // const checkedItems = Object.keys(itemCheckedData)
+    //   .filter((key) => itemCheckedData[Number(key)]) // true인 값만 필터링
     //   .map((id) => Number(id)); // ID 배열로 변환
 
     // console.log(checkedItems);
@@ -92,9 +109,9 @@ function Ordering() {
     } catch (error) {
       console.error(error);
     } finally {
-      //checkedData를 모두 false로 초기화
-      setCheckedData(
-        Object.keys(checkedData).reduce<CheckedData>((acc, key) => {
+      //itemCheckedData를 모두 false로 초기화
+      setItemCheckedData(
+        Object.keys(itemCheckedData).reduce<CheckedData>((acc, key) => {
           acc[Number(key)] = false; // 모든 아이템의 체크 상태를 false로 설정
           return acc;
         }, {})
@@ -102,7 +119,25 @@ function Ordering() {
     }
   };
 
-  const handleDeleteOrderList = async () => {};
+  const handleDeleteOrderList = async () => {
+    // 날짜를 키로 사용하는 로컬 스토리지에서 배열 가져오기
+    const storedData = localStorage.getItem(selectedDate);
+
+    if (storedData) {
+      // JSON 문자열을 배열로 변환
+      const orderList = JSON.parse(storedData);
+      // selectedOrders가 ID 배열이라고 가정
+      const updatedList = orderList.filter(
+        (item: { id: number | undefined }) => {
+          // item.id가 selectedOrders에 포함되지 않으면 true
+          return !selectedOrders.some((order) => order.id === item.id);
+        }
+      );
+      setOrderData(updatedList);
+      // 수정된 배열을 다시 로컬 스토리지에 저장
+      localStorage.setItem(selectedDate, JSON.stringify(updatedList));
+    }
+  };
 
   const handleAddServer = async () => {};
 
@@ -179,10 +214,10 @@ function Ordering() {
                 </tr>
               </thead>
               <ItemRow
-                checkedData={checkedData}
+                itemCheckedData={itemCheckedData}
                 validate={isItemListValidating}
                 itemList={safeItemList}
-                onChange={handleCheckboxChange}
+                onChange={handleAddCheckboxChange}
               />
             </table>
           </section>
@@ -233,7 +268,11 @@ function Ordering() {
                   <th>확정여부</th>
                 </tr>
               </thead>
-              <OrderRow orderData={orderData} />
+              <OrderRow
+                orderData={orderData}
+                orderCheckedData={orderCheckedData}
+                onChange={handleDeleteCheckboxChange}
+              />
             </table>
           </section>
         </div>

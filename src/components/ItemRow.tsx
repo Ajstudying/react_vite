@@ -1,14 +1,14 @@
 import { ItemList } from "../itemData";
 
 interface ItemRowProps {
-  checkedData: { [key: number]: boolean }; // { 아이템ID: 체크여부 }
+  itemCheckedData: { [key: number]: boolean }; // { 아이템ID: 체크여부 }
   validate: boolean; // validate prop 추가
   itemList: ItemList[]; // itemList의 타입을 올바르게 정의
   onChange: (id: number) => void;
 }
 
 const ItemRow = ({
-  checkedData,
+  itemCheckedData,
   validate,
   itemList,
   onChange,
@@ -29,7 +29,7 @@ const ItemRow = ({
                 <input
                   type="checkbox"
                   value={item.id}
-                  checked={checkedData[item.id] || false} // 각 아이템의 체크 상태
+                  checked={itemCheckedData[item.id] || false} // 각 아이템의 체크 상태
                   onChange={() => {
                     if (item.id !== undefined) {
                       onChange(item.id); // id가 undefined가 아닐 때만 호출

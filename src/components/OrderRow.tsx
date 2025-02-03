@@ -4,9 +4,11 @@ import { setTime } from "react-datepicker/dist/date_utils";
 
 interface OrderRowProps {
   orderData: OrderList[]; // props 타입 정의
+  orderCheckedData: { [key: number]: boolean }; // { 아이템ID: 체크여부 }
+  onChange: (id: number) => void;
 }
 
-const OrderRow = ({ orderData }: OrderRowProps) => {
+const OrderRow = ({ orderData, orderCheckedData, onChange }: OrderRowProps) => {
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
   const [increaseValue, setIncreaseValue] = useState<{ [key: number]: number }>(
     {}
@@ -57,60 +59,72 @@ const OrderRow = ({ orderData }: OrderRowProps) => {
   return (
     <tbody>
       {orderData && orderData.length > 0 ? (
-        orderData.map((item) => (
-          <tr key={item.id}>
-            <td>
-              <input type="checkbox" /> {/* 체크박스 추가 */}
-            </td>
-            <td>{item.title}</td>
-            <td>
-              {item.id !== undefined ? (
+        orderData.map((item) => {
+          if (item.id === undefined || item.id === null) return null; // id가 undefined 또는 null인 경우
+          return (
+            <tr key={item.id}>
+              <td>
                 <input
-                  type="number"
-                  // ref={numberValue}
-                  value={quantities[item.id] || 0} // 해당 아이템의 수량 표시
-                  min={increaseValue[item.id]}
-                  max="100"
-                  step={increaseValue[item.id]}
-                  onChange={(e) => {
+                  type="checkbox"
+                  value={item.id}
+                  checked={orderCheckedData[item.id] || false} // 각 아이템의 체크 상태
+                  onChange={() => {
                     if (item.id !== undefined) {
-                      // 실시간으로 값 변경 (임시 상태 업데이트)
-                      setQuantities((prev) => ({
-                        ...prev,
-                        [String(item.id)]: parseFloat(e.target.value) || 0,
-                      }));
-                    }
-                  }}
-                  onBlur={(e) => {
-                    if (item.id !== undefined) {
-                      handleQuantityChange(
-                        item.id,
-                        parseFloat(e.target.value) || 0
-                      );
+                      onChange(item.id); // id가 undefined가 아닐 때만 호출
                     }
                   }}
                 />
-              ) : (
-                <div>no</div>
-                // <input
-                //   type="number"
-                //   // ref={numberValue}
-                //   value={0}
-                //   min="0"
-                //   max="100"
-                //   step={1}
-                //   onChange={(e) => {
-                //     handleQuantityChange(0, parseInt(e.target.value, 10));
-                //   }}
-                // />
-              )}
-            </td>
-            {item.unit === "g" ? <td>kg</td> : <td>{item.unit}</td>}
-            <td>{item.price}</td>
-            <td>{item.company}</td>
-            <td>확정?</td>
-          </tr>
-        ))
+              </td>
+              <td>{item.title}</td>
+              <td>
+                {item.id !== undefined ? (
+                  <input
+                    type="number"
+                    // ref={numberValue}
+                    value={quantities[item.id] || 0} // 해당 아이템의 수량 표시
+                    min={increaseValue[item.id]}
+                    max="100"
+                    step={increaseValue[item.id]}
+                    onChange={(e) => {
+                      if (item.id !== undefined) {
+                        // 실시간으로 값 변경 (임시 상태 업데이트)
+                        setQuantities((prev) => ({
+                          ...prev,
+                          [String(item.id)]: parseFloat(e.target.value) || 0,
+                        }));
+                      }
+                    }}
+                    onBlur={(e) => {
+                      if (item.id !== undefined) {
+                        handleQuantityChange(
+                          item.id,
+                          parseFloat(e.target.value) || 0
+                        );
+                      }
+                    }}
+                  />
+                ) : (
+                  <div>no</div>
+                  // <input
+                  //   type="number"
+                  //   // ref={numberValue}
+                  //   value={0}
+                  //   min="0"
+                  //   max="100"
+                  //   step={1}
+                  //   onChange={(e) => {
+                  //     handleQuantityChange(0, parseInt(e.target.value, 10));
+                  //   }}
+                  // />
+                )}
+              </td>
+              {item.unit === "g" ? <td>kg</td> : <td>{item.unit}</td>}
+              <td>{item.price}</td>
+              <td>{item.company}</td>
+              <td>확정?</td>
+            </tr>
+          );
+        })
       ) : (
         <tr>
           <td colSpan={7}>발주 데이터가 없습니다.</td>
