@@ -108,9 +108,7 @@ const OrderRow = ({ orderData }: OrderRowProps) => {
             {item.unit === "g" ? <td>kg</td> : <td>{item.unit}</td>}
             <td>{item.price}</td>
             <td>{item.company}</td>
-            <td>
-              <button>확정</button>
-            </td>
+            <td>확정?</td>
           </tr>
         ))
       ) : (

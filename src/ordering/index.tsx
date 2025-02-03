@@ -102,6 +102,10 @@ function Ordering() {
     }
   };
 
+  const handleDeleteOrderList = async () => {};
+
+  const handleAddServer = async () => {};
+
   useEffect(() => {
     const fetchData = async () => {
       if (selectedDate !== null) {
@@ -150,6 +154,11 @@ function Ordering() {
                 selectedDate={selectedDate}
               />
             </span>
+            <span>
+              <button onSubmit={handleAddServer} className="btn-primary">
+                저장
+              </button>
+            </span>
           </div>
         </section>
         <div id="sectionDiv">
@@ -177,21 +186,38 @@ function Ordering() {
               />
             </table>
           </section>
-          <button
-            id="orderBtn"
-            className="border border-white h-12 w-12 rounded-full mt-12 bg-[rgba(180,154,130)] flex justify-center items-center shadow-md hover:shadow-lg active:shadow-inner cursor-pointer transition-all duration-200"
-            onClick={handleUpdateOrderList}
-          >
-            <svg
-              className="text-white w-9 h-12 cursor-pointer"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
+          <div>
+            <button
+              id="orderBtn"
+              className="border border-white h-12 w-12 rounded-full mt-12 bg-[rgba(180,154,130)] flex justify-center items-center shadow-md hover:shadow-lg active:shadow-inner cursor-pointer transition-all duration-200"
+              onClick={handleUpdateOrderList}
             >
-              <path d="M8 5v14l11-7z" fill="currentColor" />
-            </svg>
-          </button>
+              <svg
+                className="text-white w-9 h-12 cursor-pointer"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path d="M8 5v14l11-7z" fill="currentColor" />
+              </svg>
+            </button>
+            <button
+              id="orderBtn"
+              className="border border-white h-12 w-12 rounded-full mt-12 bg-[rgba(180,154,130)] flex justify-center items-center shadow-md hover:shadow-lg active:shadow-inner cursor-pointer transition-all duration-200"
+              onClick={handleDeleteOrderList}
+            >
+              <svg
+                className="text-white w-9 h-12 cursor-pointer"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path d="M16 5v14l-11-7z" fill="currentColor" />
+              </svg>
+            </button>
+          </div>
           <section>
             <table>
               <thead>

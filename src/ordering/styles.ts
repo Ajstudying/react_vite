@@ -23,7 +23,25 @@ export const OrderingContainer = styled.div`
   }
   #orderList {
     display: flex;
-    width: 42%;
+    width: 45%;
+    justify-content: space-between;
+  }
+  /* #orderList > span:nth-of-type(1) {
+    flex: 2;
+    text-align: start; */
+  /* border: solid 1px crimson; */
+  /* }
+  #orderList > span:nth-of-type(2) {
+    flex: 1; */
+  /* border: solid 1px blue; */
+  /* }
+  #orderList > span:nth-of-type(3) {
+    flex: 0.5; */
+  /* border: solid 1px green; */
+  /* text-align: end;
+  } */
+  #orderList > span:nth-of-type(3) {
+    display: flex;
     justify-content: space-between;
   }
   #toggleCalendar {
