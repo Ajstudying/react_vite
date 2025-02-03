@@ -15,8 +15,9 @@ interface CheckedData {
 function Ordering() {
   const [selectedDate, setSelectedDate] = useState<string | "">("");
   const [checkedData, setCheckedData] = useState<CheckedData>({});
-  const { itemList, isItemListValidating } = useItemData(selectedDate);
+  // const [checkedData, dispatch] = useReducer(checkedDataReducer, {});
   const [selectedItems, setSelectedItems] = useState<ItemList[]>([]); // 선택된 아이템 정보 상태
+  const { itemList, isItemListValidating } = useItemData(selectedDate);
   const [orderData, setOrderData] = useState<OrderList[]>([]);
 
   // itemList의 타입 정의
@@ -60,10 +61,21 @@ function Ordering() {
 
     // console.log(checkedItems);
     try {
-      // 선택된 아이템을 날짜를 키로 하여 localStorage에 저장
-      localStorage.setItem(selectedDate, JSON.stringify(selectedItems));
+      const cachedData = localStorage.getItem(selectedDate);
+      //먼저 저장된 데이터가 있을 경우 추가하기 위해
+      let finalData: ItemList[]; // 블록 스코프 내에서만 유효
+      if (cachedData) {
+        const parseData = JSON.parse(cachedData);
+        finalData = parseData.concat(selectedItems);
+        localStorage.setItem(selectedDate, JSON.stringify(finalData));
+      } else {
+        // 선택된 아이템을 날짜를 키로 하여 localStorage에 저장
+        finalData = selectedItems;
+        localStorage.setItem(selectedDate, JSON.stringify(selectedItems));
+      }
+
       // OrderData 객체 배열 생성
-      const newOrders = selectedItems.map((item) => {
+      const newOrders = finalData.map((item) => {
         return {
           id: item.id,
           title: item.title,
@@ -79,6 +91,14 @@ function Ordering() {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      //checkedData를 모두 false로 초기화
+      setCheckedData(
+        Object.keys(checkedData).reduce<CheckedData>((acc, key) => {
+          acc[Number(key)] = false; // 모든 아이템의 체크 상태를 false로 설정
+          return acc;
+        }, {})
+      );
     }
   };
 
