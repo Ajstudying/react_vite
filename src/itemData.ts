@@ -34,7 +34,19 @@ const itemListApi = async (date: string): Promise<ItemList[]> => {
     }
   } catch (e: any) {
     console.error("Error fetching data:", e);
-    return INIT_DATA; // 오류 발생 시 초기 데이터 반환
+    // return INIT_DATA; // 오류 발생 시 초기 데이터 반환
+    // 서버에 응답이 없을 경우 public의 json 파일에서 데이터 반환
+    try {
+      const response = await fetch(`/itemData.json`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const jsonData = await response.json();
+      return jsonData.data; // JSON 파일에서 가져온 데이터 반환
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+      return INIT_DATA; // JSON 파일도 가져오지 못한 경우 초기 데이터 반환
+    }
   }
 };
 
