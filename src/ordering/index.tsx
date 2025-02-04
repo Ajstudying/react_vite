@@ -28,8 +28,6 @@ function Ordering() {
     id: "상품코드",
   });
 
-  const [searchData, setSearchData] = useState({});
-
   // itemList의 타입 정의
   const safeItemList: ItemList[] = itemList || []; // itemList가 undefined일 경우 빈 배열로 설정
 
@@ -152,6 +150,22 @@ function Ordering() {
     }
   };
 
+  function searchList(selectedOption: string, inputData: string) {
+    const filteredItems = itemList?.filter((item) => {
+      // selectedOption에 해당하는 item의 속성 값과 inputData를 비교
+      const optionValue = item[selectedOption as keyof ItemList];
+      return optionValue && optionValue.toString().includes(inputData); // 포함 여부로 필터링
+    });
+
+    // console.log(JSON.stringify(filteredItems) + "필터링"); // 필터링된 결과 확인
+    return filteredItems; // 필요에 따라 반환
+  }
+
+  const handleSearch = (selectedOption: string, inputData: string) => {
+    const results = searchList(selectedOption, inputData); // searchList 호출
+    // console.log(JSON.stringify(results, null, 2) + "결과"); // 결과 확인
+  };
+
   //서버 저장
   const handleAddServer = async () => {};
 
@@ -184,7 +198,7 @@ function Ordering() {
         <section>
           <div id="orderSearch">
             <span>발주가능 품목</span>
-            <SearchBar selectionList={selectionList} />
+            <SearchBar selectionList={selectionList} onSubmit={handleSearch} />
             {/* <form action="">
               <select name="" id="">
                 <option value="">사업장명</option>
