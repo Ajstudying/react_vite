@@ -104,18 +104,17 @@ const OrderRow = ({ orderData, orderCheckedData, onChange }: OrderRowProps) => {
                     }}
                   />
                 ) : (
-                  <div>no</div>
-                  // <input
-                  //   type="number"
-                  //   // ref={numberValue}
-                  //   value={0}
-                  //   min="0"
-                  //   max="100"
-                  //   step={1}
-                  //   onChange={(e) => {
-                  //     handleQuantityChange(0, parseInt(e.target.value, 10));
-                  //   }}
-                  // />
+                  <input
+                    type="number"
+                    // ref={numberValue}
+                    value={0}
+                    min="0"
+                    max="100"
+                    step={1}
+                    onChange={(e) => {
+                      handleQuantityChange(0, parseInt(e.target.value, 10));
+                    }}
+                  />
                 )}
               </td>
               {item.unit === "g" ? <td>kg</td> : <td>{item.unit}</td>}

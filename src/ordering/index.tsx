@@ -7,6 +7,7 @@ import ItemRow from "../components/ItemRow";
 import { ItemList, useItemData } from "../itemData";
 import { OrderList } from "../orderData";
 import OrderRow from "../components/OrderRow";
+import SearchBar from "../components/SearchBar";
 
 interface CheckedData {
   [key: number]: boolean; // 체크박스 ID를 키로 하는 boolean 객체
@@ -21,10 +22,18 @@ function Ordering() {
   const [selectedOrders, setSelectedOrders] = useState<OrderList[]>([]);
   const { itemList, isItemListValidating } = useItemData(selectedDate);
   const [orderData, setOrderData] = useState<OrderList[]>([]);
+  const [selectionList, setSelectionList] = useState({
+    company: "사업장명",
+    title: "상품명",
+    id: "상품코드",
+  });
+
+  const [searchData, setSearchData] = useState({});
 
   // itemList의 타입 정의
   const safeItemList: ItemList[] = itemList || []; // itemList가 undefined일 경우 빈 배열로 설정
 
+  //날짜를 입력하면 그 날짜를 기준으로 로컬스토리지에 저장하기 때문에 날짜 핸들링 제어
   const handleDateChange = (date: Date | null) => {
     if (date) {
       // 날짜를 "YYYY-MM-DD" 형식으로 변환
@@ -40,6 +49,7 @@ function Ordering() {
     }
   };
 
+  //아이템 리스트에서 체크 토글 핸들링 및 체크 데이터 업데이트
   const handleAddCheckboxChange = (id: number) => {
     setItemCheckedData((prev) => {
       const newItemCheckedData = { ...prev, [id]: !prev[id] }; // 체크 상태 토글
@@ -55,6 +65,7 @@ function Ordering() {
     });
   };
 
+  //발주서에서 체크박스 토글 핸들링 및 발주서의 체크 데이터 업데이트
   const handleDeleteCheckboxChange = (id: number) => {
     setOrderCheckedData((prev) => {
       const newOrderCheckedData = { ...prev, [id]: !prev[id] }; // 체크 상태 토글
@@ -70,6 +81,7 @@ function Ordering() {
     });
   };
 
+  //아이템리스트에서 선택된 애들을 해당 날짜 키로 저장된 로컬스토리지에 저장하기
   const handleUpdateOrderList = async () => {
     // 체크된 아이템만 필터링 확인용
     // const checkedItems = Object.keys(itemCheckedData)
@@ -119,6 +131,7 @@ function Ordering() {
     }
   };
 
+  //로컬스토리지에서 저장된 해당 날짜 데이터에서 선택된 데이터를 제외하고 새로운 데이터로 업데이트 <삭제>
   const handleDeleteOrderList = async () => {
     // 날짜를 키로 사용하는 로컬 스토리지에서 배열 가져오기
     const storedData = localStorage.getItem(selectedDate);
@@ -139,8 +152,10 @@ function Ordering() {
     }
   };
 
+  //서버 저장
   const handleAddServer = async () => {};
 
+  //날짜에 변경에 맞춰 로컬 스토리지 새로 조회
   useEffect(() => {
     const fetchData = async () => {
       if (selectedDate !== null) {
@@ -157,6 +172,7 @@ function Ordering() {
     fetchData(); // 비동기 함수 호출
   }, [selectedDate]);
 
+  //초기 렌더링
   useEffect(() => {
     const initialDate = getDate(null);
     setSelectedDate(initialDate);
@@ -168,7 +184,8 @@ function Ordering() {
         <section>
           <div id="orderSearch">
             <span>발주가능 품목</span>
-            <form action="">
+            <SearchBar selectionList={selectionList} />
+            {/* <form action="">
               <select name="" id="">
                 <option value="">사업장명</option>
                 <option value="">상품명</option>
@@ -178,7 +195,7 @@ function Ordering() {
               <button className="bg-black text-white font-semibold py-1 px-4 rounded hover:bg-gray-800">
                 검색
               </button>
-            </form>
+            </form> */}
           </div>
           <div id="orderList">
             <span>발주서</span>
